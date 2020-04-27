@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="input-group mt-5 mb-5 animated fadeIn fast">
+        <input type="text" class="form-control" placeholder="Escriba el nombre del producto" (keyup.enter)="searchProduct(searchText.value)" #searchText>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchProduct(searchText.value)">Buscar</button>
+        </div>
+    </div>
+    <div class="alert alert-secondary animated fadeIn fast" *ngIf="products.length == 0">
+        No se encontraron productos
+    </div>
+    <div class="card-columns mt-5 mb-5">
+        <app-product-card [product]="product" *ngFor="let product of products"></app-product-card>
+    </div>
+</div>

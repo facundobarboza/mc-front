@@ -1,0 +1,12 @@
+<div class="card animated fadeIn fast">
+    <img [src]="product.img" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
+        <p class="card-text">{{product.description}}</p>
+    </div>
+    <div class="card-footer text-center">
+        <button type="button" class="btn btn-info btn-sm" (click)="detail()">Detalle</button>
+        <button type="button" class="btn btn-dist btn-sm">Agregar al carrito</button>
+    </div>
+</div>
