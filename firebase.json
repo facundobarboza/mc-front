@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/mc-front",
     "ignore": [
       "firebase.json",
       "**/.*",
