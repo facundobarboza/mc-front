@@ -7,56 +7,112 @@ export class ProductsService {
     private products: Product[] = [
         {
             id: '1',
-            name: "Aquaman",
-            description: "El poder más reconocido de Aquaman es la capacidad telepática para comunicarse con la vida marina, la cual puede convocar a grandes distancias.",
+            name: "Producto 1",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
             img: "assets/images/product-1.jpg",
             price: "123",
             status: "DC"
         },
         {
             id: '2',
-            name: "Batman",
-            description: "Los rasgos principales de Batman se resumen en «destreza física, habilidades deductivas y obsesión». La mayor parte de las características básicas de los cómics han variado por las diferentes interpretaciones que le han dado al personaje.",
+            name: "Producto 2",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
             img: "assets/images/product-2.jpg",
             price: "123",
             status: "DC"
         },
         {
             id: '3',
-            name: "Daredevil",
-            description: "Al haber perdido la vista, los cuatro sentidos restantes de Daredevil fueron aumentados por la radiación a niveles superhumanos, en el accidente que tuvo cuando era niño. A pesar de su ceguera, puede \"ver\" a través de un \"sexto sentido\" que le sirve como un radar similar al de los murciélagos.",
+            name: "Producto 3",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
             img: "assets/images/product-3.jpg",
             price: "123",
             status: "Marvel"
         },
         {
             id: '4',
-            name: "Hulk",
-            description: "Su principal poder es su capacidad de aumentar su fuerza hasta niveles prácticamente ilimitados a la vez que aumenta su furia. Dependiendo de qué personalidad de Hulk esté al mando en ese momento (el Hulk Banner es el más débil, pero lo compensa con su inteligencia).",
+            name: "Producto 4",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
             img: "assets/images/product-4.jpg",
             price: "123",
             status: "Marvel"
         },
         {
             id: '5',
-            name: "Linterna Verde",
-            description: "Poseedor del anillo de poder que posee la capacidad de crear manifestaciones de luz sólida mediante la utilización del pensamiento. Es alimentado por la Llama Verde (revisada por escritores posteriores como un poder místico llamado Starheart), una llama mágica contenida en dentro de un orbe (el orbe era en realidad un meteorito verde de metal que cayó a la Tierra, el cual encontró un fabricante de lámparas llamado Chang)",
+            name: "Producto 5",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
             img: "assets/images/product-5.jpg",
             price: "123",
             status: "DC"
         },
         {
             id: '6',
-            name: "Spider-Man",
-            description: "Tras ser mordido por una araña radiactiva, obtuvo los siguientes poderes sobrehumanos, una gran fuerza, agilidad, poder trepar por paredes. La fuerza de Spider-Man le permite levantar 10 toneladas o más. Gracias a esta gran fuerza Spider-Man puede realizar saltos íncreibles. Un \"sentido arácnido\", que le permite saber si un peligro se cierne sobre él, antes de que suceda. En ocasiones este puede llevar a Spider-Man al origen del peligro.",
+            name: "Producto 6",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
             img: "assets/images/product-6.jpg",
             price: "123",
             status: "Marvel"
         },
         {
             id: '7',
-            name: "Wolverine",
-            description: "En el universo ficticio de Marvel, Wolverine posee poderes regenerativos que pueden curar cualquier herida, por mortal que ésta sea, además ese mismo poder hace que sea inmune a cualquier enfermedad existente en la Tierra y algunas extraterrestres . Posee también una fuerza sobrehumana, que si bien no se compara con la de otros superhéroes como Hulk, sí sobrepasa la de cualquier humano.",
+            name: "Producto 7",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
+            img: "assets/images/product-7.jpg",
+            price: "123",
+            status: "Marvel"
+        },
+        {
+            id: '8',
+            name: "Producto 8",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
+            img: "assets/images/product-8.jpg",
+            price: "123",
+            status: "DC"
+        },
+        {
+            id: '9',
+            name: "Producto 9",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
+            img: "assets/images/product-9.jpg",
+            price: "123",
+            status: "DC"
+        },
+        {
+            id: '10',
+            name: "Producto 10",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
+            img: "assets/images/product-10.jpg",
+            price: "123",
+            status: "Marvel"
+        },
+        {
+            id: '11',
+            name: "Producto 11",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
+            img: "assets/images/product-11.jpg",
+            price: "123",
+            status: "Marvel"
+        },
+        {
+            id: '12',
+            name: "Producto 12",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
+            img: "assets/images/product-12.jpg",
+            price: "123",
+            status: "DC"
+        },
+        {
+            id: '13',
+            name: "Producto 3",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
+            img: "assets/images/product-6.jpg",
+            price: "123",
+            status: "Marvel"
+        },
+        {
+            id: '14',
+            name: "Producto 6",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et leo eu sapien finibus egestas.",
             img: "assets/images/product-7.jpg",
             price: "123",
             status: "Marvel"

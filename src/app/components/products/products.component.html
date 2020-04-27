@@ -8,7 +8,7 @@
     <div class="alert alert-secondary animated fadeIn fast" *ngIf="products.length == 0">
         No se encontraron productos
     </div>
-    <div class="card-columns mt-5 mb-5">
-        <app-product-card [product]="product" *ngFor="let product of products"></app-product-card>
+    <div class="card-deck mt-5 mb-5">
+        <app-product-card class="col-4 p-0 mb-3" [product]="product" *ngFor="let product of products"></app-product-card>
     </div>
 </div>
