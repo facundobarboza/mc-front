@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+
+<ng-container *ngIf="product && product.id">
+    <div class="container">
+        <div class="row mt-5 mb-5 animated fadeIn fast">
+            <div class="col-md-4">
+                <img [src]="product.img" class="img-fluid">
+                <br>
+            </div>
+            <div class="col-md-8">
+                <h3>{{product.name}} <small>${{product.price}}</small></h3>
+                <hr>
+                <p>{{product.description}}</p>
+                <button type="button" class="btn btn-info btn-sm" [routerLink]="['/products']">Volver</button>
+                <button type="button" class="btn btn-dist btn-sm">Agregar al carrito</button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<app-footer></app-footer>
