@@ -14,7 +14,7 @@ import { LoginComponent } from './login/login.component';
 
 const APP_ROUTES: Routes = [
     {
-        path: '',
+        path: 'home',
         component: PagesComponent,
         canActivate: [AuthGuard],
         children: [
