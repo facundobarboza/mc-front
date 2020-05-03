@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('email', this.user.email);
         }
 
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('home');
       })
       .catch((error) => {
         Swal.fire({

@@ -14,12 +14,12 @@ import { LoginComponent } from './login/login.component';
 
 const APP_ROUTES: Routes = [
     {
-        path: '',
+        path: 'home',
         component: PagesComponent,
         canActivate: [AuthGuard],
         children: [
             { path: 'home', component: HomeComponent },
-            // { path: '', pathMatch: 'full', redirectTo: 'home' }
+            { path: '', pathMatch: 'full', redirectTo: 'home' }
         ]
     },
     { path: 'index', component: IndexComponent },

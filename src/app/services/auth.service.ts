@@ -27,12 +27,12 @@ export class AuthService {
   login(user: User) {
     return this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password)
       .then((response) => {
-        console.log('Login response: ', response);
+        console.log('registar response: ', response);
 
-        // this.setUserData(response.user);
+        this.setUserData(response.user);
       })
       .catch((error) => {
-        console.log('Error al iniciar seción: ', error.message);
+        console.log('Error al registrase: ', error.message);
       });
   }
 
@@ -54,6 +54,14 @@ export class AuthService {
   }
 
   setUserData(user) {
+    this.angularFireAuth.authState.subscribe(user => {
+      if (user) {
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+      } else {
+        localStorage.setItem('user', null);
+      }
+    });
     const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${user.uid}`);
     const userData: UserStorage = {
       uid: user.uid,
