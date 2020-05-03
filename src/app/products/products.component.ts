@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/services/products.service';
+import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -10,16 +11,16 @@ import { Router } from '@angular/router';
 })
 export class ProductsComponent implements OnInit {
 
-  products: Product[] = [];
+  products: Observable<Product[]>;
 
-  constructor(private router: Router, private productsService: ProductsService) { }
+  constructor(private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.products = this.productsService.getAllProducts();
+    this.products = this.productService.getAllProducts();
   }
 
   searchProduct(search: string) {
-    this.products = this.productsService.searchProductByName(search);
+    // this.products = this.productsService.searchProductByName(search);
   }
 
 }

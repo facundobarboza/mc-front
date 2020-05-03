@@ -1,5 +1,216 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Bienvenido!</h1>
+        <h1 class="h3 mb-0 text-gray-800">Productos</h1>
+        <button (click)="addProduct()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Agregar nuevo
+            producto</button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col" class="text-center">Precio</th>
+                        <th scope="col">Categorias</th>
+                        <th scope="col" class="text-center">status</th>
+                        <th scope="col" class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of products | async">
+                        <td><img [src]="item.imgProduct" class="mr-3" [alt]="item.name" width="40"></td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.description}}</td>
+                        <td class="text-center">${{item.price}}</td>
+                        <td>{{item.categories}}</td>
+                        <td class="text-center">{{item.status}}</td>
+                        <td class="text-right">
+                            <button class="btn btn-info btn-sm" (click)="editProduct(item)">Editar</button>
+                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="addProductLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductLabel">Agregar producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input class="form-control" type="text" name="name" id="name" [(ngModel)]="product.name"
+                                    required minlength="2">
+                                <span *ngIf="f.submitted && f.controls['name'].errors"
+                                    class="text-danger animated fadeIn fast">El
+                                    nombre es obligatorio</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="description">Descripción</label>
+                                <input class="form-control" type="description" name="description" id="description"
+                                    [(ngModel)]="product.description" required>
+                                <span *ngIf="f.submitted && f.controls['description'].errors"
+                                    class="text-danger animated fadeIn fast">La descripción es obligatoria</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="price">Precio</label>
+                                <input class="form-control" type="price" name="price" id="price"
+                                    [(ngModel)]="product.price" required>
+                                <span *ngIf="f.submitted && f.controls['price'].errors"
+                                    class="text-danger animated fadeIn fast">El precio es obligatorio</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <br>
+                                <button type="button" *ngIf="product.status" (click)="product.status = false"
+                                    class="btn btn-success w-100">Activo</button>
+                                <button type="button" *ngIf="!product.status" (click)="product.status = true"
+                                    class="btn btn-danger w-100">Inactivo</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- <div class="form-group">
+                                <label for="category">Para el siguiente Servicio:</label>
+                                <select placeholder="Categoria" class="form-control" id="category" [(ngModel)]="product.categories">
+                                    <option *ngFor="let item of categoriesList" [value]="item.name">
+                                        {{ item.name }}
+                                    </option>
+                                </select>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="category">Categoria</label>
+                                <input class="form-control" type="category" name="category" id="category"
+                                    [(ngModel)]="product.categories">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="imagePost"
+                                        (change)="handleImage($event)">
+                                    <label class="custom-file-label" for="customFile">{{image.name ? image.name : 'Seleccione imagen'}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">
+                        Crear producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editProduct" tabindex="-1" role="dialog" aria-labelledby="editProductLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductLabel">Editar producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input class="form-control" type="text" name="name" id="name" [(ngModel)]="product.name"
+                                    required minlength="2">
+                                <span *ngIf="f.submitted && f.controls['name'].errors"
+                                    class="text-danger animated fadeIn fast">El
+                                    nombre es obligatorio</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="description">Descripción</label>
+                                <input class="form-control" type="description" name="description" id="description"
+                                    [(ngModel)]="product.description" required>
+                                <span *ngIf="f.submitted && f.controls['description'].errors"
+                                    class="text-danger animated fadeIn fast">La descripción es obligatoria</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="price">Precio</label>
+                                <input class="form-control" type="price" name="price" id="price"
+                                    [(ngModel)]="product.price" required>
+                                <span *ngIf="f.submitted && f.controls['price'].errors"
+                                    class="text-danger animated fadeIn fast">El precio es obligatorio</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <br>
+                                <button type="button" *ngIf="product.status" (click)="product.status = false"
+                                    class="btn btn-success w-100">Activo</button>
+                                <button type="button" *ngIf="!product.status" (click)="product.status = true"
+                                    class="btn btn-danger w-100">Inactivo</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- <div class="form-group">
+                                <label for="category">Para el siguiente Servicio:</label>
+                                <select placeholder="Categoria" class="form-control" id="category" [(ngModel)]="product.categories">
+                                    <option *ngFor="let item of categoriesList" [value]="item.name">
+                                        {{ item.name }}
+                                    </option>
+                                </select>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="category">Categoria</label>
+                                <input class="form-control" type="category" name="category" id="category"
+                                    [(ngModel)]="product.categories">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="imagePost"
+                                        (change)="handleImage($event)">
+                                    <label class="custom-file-label" for="customFile">Seleccione imagen</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 align-items-center">
+                            <img [src]="product.imgProduct" [alt]="product.name" width="200">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">
+                        Crear producto</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

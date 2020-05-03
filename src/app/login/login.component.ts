@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { UserModel } from 'src/app/models/user.model';
+import { User } from '../models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
 
-  user: UserModel = new UserModel();
+  user: User = new User();
   remindMe = false;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -34,21 +34,22 @@ export class LoginComponent implements OnInit {
     });
     Swal.showLoading();
 
-    this.authService.login(this.user).subscribe(response => {
-      console.log(response);
-      Swal.close();
+    this.authService.login(this.user)
+      .then(response => {
+        Swal.close();
 
-      if (this.remindMe) {
-        localStorage.setItem('email', this.user.email);
-      }
+        if (this.remindMe) {
+          localStorage.setItem('email', this.user.email);
+        }
 
-      this.router.navigateByUrl('/home');
-    }, (error) => {
-      Swal.fire({
-        title: 'Error al loguearse',
-        icon: 'error',
-        text: error.error.error.message
+        this.router.navigateByUrl('/home');
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Error al loguearse',
+          icon: 'error',
+          text: error.message
+        });
       });
-    });
   }
 }

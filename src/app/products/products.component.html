@@ -7,11 +7,23 @@
             <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchProduct(searchText.value)">Buscar</button>
         </div>
     </div>
-    <div class="alert alert-secondary animated fadeIn fast" *ngIf="products.length == 0">
+    <!-- <div class="alert alert-secondary animated fadeIn fast" *ngIf="products.length == .length == 0">
         No se encontraron productos
-    </div>
+    </div> -->
     <div class="card-deck mt-5 mb-5">
-        <app-product-card class="col-4 p-0 mb-3" [product]="product" *ngFor="let product of products"></app-product-card>
+        <!-- <div class="card animated fadeIn fast" *ngFor="let product of products | async">
+            <img [src]="product.imgProduct" class="card-img-top" [alt]="product.name">
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
+                <p class="card-text">{{product.description}}</p>
+            </div>
+            <div class="card-footer text-center">
+                <button type="button" class="btn btn-info btn-sm" (click)="detail()">Detalle</button>
+                <button type="button" class="btn btn-dist btn-sm">Agregar al carrito</button>
+            </div>
+        </div> -->
+        <app-product-card class="col-4 p-0 mb-3" [product]="product" *ngFor="let product of products | async"></app-product-card>
     </div>
 </div>
 

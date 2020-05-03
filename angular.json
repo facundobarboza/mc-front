@@ -117,8 +117,13 @@
               "devServerTarget": "mc-front:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "mc-front"
 }

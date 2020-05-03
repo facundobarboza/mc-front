@@ -1,13 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+// firebase
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+
+import { environment } from '../environments/environment';
 
 // Routes
 import { APP_ROUTING } from './app.routes';
 
 // Services
-import { ProductsService } from './services/products.service';
+import { ProductService } from './services/product.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -33,10 +42,10 @@ import { NavbarAdminComponent } from './pages/shared/navbar-admin/navbar-admin.c
     NavbarComponent,
     FooterComponent,
     PagesComponent,
-    
+
     HomeComponent,
     ProductCardComponent,
-    
+
     IndexComponent,
     ProductsComponent,
     ProductComponent,
@@ -48,10 +57,19 @@ import { NavbarAdminComponent } from './pages/shared/navbar-admin/navbar-admin.c
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
+    AngularFireAnalyticsModule,
     APP_ROUTING
   ],
-  providers: [ProductsService],
+  providers: [
+    { provide: BUCKET, useValue: 'gs://mc-front.appspot.com' },
+    ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

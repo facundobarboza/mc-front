@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { UserModel } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
@@ -12,10 +12,10 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent implements OnInit {
 
-  user: UserModel = new UserModel();
+  user: User = new User();
   remindMe = false;
 
-  constructor(private authService: AuthService, private router: Router ) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -30,21 +30,22 @@ export class RegisterComponent implements OnInit {
     });
     Swal.showLoading();
 
-    this.authService.register(this.user).subscribe(response => {
-      console.log(response);
-      Swal.close();
+    this.authService.register(this.user)
+      .then(response => {
+        Swal.close();
 
-      if (this.remindMe) {
-        localStorage.setItem('email', this.user.email);
-      }
+        if (this.remindMe) {
+          localStorage.setItem('email', this.user.email);
+        }
 
-      this.router.navigateByUrl('/home');
-    }, (error) => {
-      Swal.fire({
-        title: 'Error al registrarse',
-        icon: 'error',
-        text: error.error.error.message
+        this.router.navigateByUrl('/home');
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Error al registrarse',
+          icon: 'error',
+          text: error.message
+        });
       });
-    });
   }
 }

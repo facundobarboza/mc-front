@@ -1,5 +1,11 @@
 {
-  "projects": {
-    "default": "mc-front"
+  "targets": {
+    "mc-front": {
+      "hosting": {
+        "mc-front": [
+          "mc-front"
+        ]
+      }
+    }
   }
 }

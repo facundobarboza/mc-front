@@ -1,8 +1,14 @@
 export class Product {
-    id: string;
+    id?: string;
     name: string;
     description: string;
-    img: string;
-    price: string;
-    status: string;
+    imgProduct?: any;
+    price: number;
+    status: boolean;
+    categories: string;
+    fileRef?: string;
+
+    constructor() {
+        this.status = true;
+    }
 }

@@ -15,8 +15,13 @@ export class NavbarAdminComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigateByUrl('/index');
+    this.authService.logout()
+      .then(() => {
+        this.router.navigateByUrl('/index');
+      })
+      .catch((error) => {
+        console.log('Error al cerrar seción: ', error.message);
+      });
   }
 
 }

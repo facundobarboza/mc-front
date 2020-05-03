@@ -1,103 +1,79 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { UserModel } from '../models/user.model';
-
-import { map } from 'rxjs/operators';
+import { User, UserStorage } from '../models/user';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
+import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
+import { finalize } from 'rxjs/operators';
+import { File } from '../models/file';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  public userData: any;
+  private filePath: string;
 
-  private url = 'https://identitytoolkit.googleapis.com/v1/accounts:';
-  private apiKey = 'AIzaSyDkFRK2PDTYbCrdumUvaRsESamSADAvTQg';
-  private userToken: string;
+  constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore) {
+    this.angularFireAuth.authState.subscribe(user => {
+      if (user) {
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+      } else {
+        localStorage.setItem('user', null);
+      }
+    });
+  }
 
-  // Crear nuevo usuario
-  // https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
+  login(user: User) {
+    return this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password)
+      .then((response) => {
+        console.log('Login response: ', response);
 
-  // Login
-  // https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+        // this.setUserData(response.user);
+      })
+      .catch((error) => {
+        console.log('Error al iniciar seción: ', error.message);
+      });
+  }
 
-  constructor(private http: HttpClient) {
-    this.getToken();
+  register(user: User) {
+    return this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password)
+      .then((response) => {
+        console.log('registar response: ', response);
+
+        this.setUserData(response.user);
+      })
+      .catch((error) => {
+        console.log('Error al registrase: ', error.message);
+      });
+  }
+
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null) ? true : false;
+  }
+
+  setUserData(user) {
+    const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${user.uid}`);
+    const userData: UserStorage = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified
+    }
+    return userRef.set(userData, {
+      merge: true
+    });
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
-  }
-
-  login(user: UserModel) {
-
-    const authData = {
-      email: user.email,
-      password: user.password,
-      returnSecureToken: true
-    };
-
-    return this.http.post(
-      `${this.url}signInWithPassword?key=${this.apiKey}`, authData
-    ).pipe(
-      map(response => {
-        this.saveToken(response['idToken']);
-        return response;
+    return this.angularFireAuth.signOut()
+      .then(() => {
+        localStorage.removeItem('user');
       })
-    );
-
-  }
-
-  register(user: UserModel) {
-
-    const authData = {
-      email: user.email,
-      password: user.password,
-      returnSecureToken: true
-    };
-
-    return this.http.post(
-      `${this.url}signUp?key=${this.apiKey}`, authData
-    ).pipe(
-      map(response => {
-        this.saveToken(response['idToken']);
-        return response;
-      })
-    );
-
-  }
-
-  saveToken(idToken: string) {
-    this.userToken = idToken;
-    localStorage.setItem('token', idToken);
-
-    let today = new Date();
-    today.setSeconds(3600);
-
-    localStorage.setItem('expiration', today.getTime().toString());
-  }
-
-  getToken() {
-    if (localStorage.getItem('token')) {
-      this.userToken = localStorage.getItem('token');
-    } else {
-      this.userToken = '';
-    }
-    return this.userToken;
-  }
-
-  isAuthenticated(): boolean {
-    if (this.saveToken.length > 2) {
-      return false;
-    }
-
-    const expiration = Number(localStorage.getItem('expiration'));
-    const expirationDate = new Date();
-    expirationDate.setTime(expiration);
-
-    if (expirationDate > new Date()) {
-      return true;
-    } else {
-      return false;
-    }
+      .catch((error) => {
+        console.log('Error al cerrar seción: ', error.message);
+      });
   }
 }
