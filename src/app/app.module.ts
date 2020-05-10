@@ -17,6 +17,7 @@ import { APP_ROUTING } from './app.routes';
 
 // Services
 import { ProductService } from './services/product.service';
+import { CategoryService } from './services/category.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
 import { HomeComponent } from './pages/home/home.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
 
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './product/product.component';
@@ -35,6 +37,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SidebarComponent } from './pages/shared/sidebar/sidebar.component';
 import { NavbarAdminComponent } from './pages/shared/navbar-admin/navbar-admin.component';
+import { Page404Component } from './page404/page404.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,7 @@ import { NavbarAdminComponent } from './pages/shared/navbar-admin/navbar-admin.c
     PagesComponent,
 
     HomeComponent,
+    CategoriesComponent,
     ProductCardComponent,
 
     IndexComponent,
@@ -52,7 +57,9 @@ import { NavbarAdminComponent } from './pages/shared/navbar-admin/navbar-admin.c
     LoginComponent,
     RegisterComponent,
     SidebarComponent,
-    NavbarAdminComponent
+    NavbarAdminComponent,
+    Page404Component,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +75,8 @@ import { NavbarAdminComponent } from './pages/shared/navbar-admin/navbar-admin.c
   ],
   providers: [
     { provide: BUCKET, useValue: 'gs://mc-front.appspot.com' },
-    ProductService
+    ProductService,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })

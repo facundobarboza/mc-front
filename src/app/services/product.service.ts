@@ -59,7 +59,8 @@ export class ProductService {
             price: product.price,
             status: product.status,
             categories: product.categories,
-            fileRef: this.filePath
+            fileRef: this.filePath,
+            quantity: product.quantity
         };
 
         if (product.id) {
@@ -84,4 +85,41 @@ export class ProductService {
                 })
             ).subscribe();
     }
+
+    searchProductsByName(search: string) {
+        return this.angularFirestore
+            .collection<Product>('products',
+                ref => ref
+                    .where('name', '>=', search.toLowerCase())
+            )
+            .snapshotChanges()
+            .pipe(
+                map(actions =>
+                    actions.map(a => {
+                        const data = a.payload.doc.data() as Product;
+                        const id = a.payload.doc.id;
+                        return { id, ...data };
+                    })
+                )
+            );
+    }
+
+    filterByCategoryName(search: string) {
+        return this.angularFirestore
+            .collection<Product>('products',
+                ref => ref
+                    .where('categories', 'array-contains', search)
+            )
+            .snapshotChanges()
+            .pipe(
+                map(actions =>
+                    actions.map(a => {
+                        const data = a.payload.doc.data() as Product;
+                        const id = a.payload.doc.id;
+                        return { id, ...data };
+                    })
+                )
+            );
+    }
+
 }

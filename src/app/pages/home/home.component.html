@@ -12,10 +12,9 @@
                     <tr>
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Descripción</th>
                         <th scope="col" class="text-center">Precio</th>
-                        <th scope="col">Categorias</th>
-                        <th scope="col" class="text-center">status</th>
+                        <th scope="col" class="text-center">Estado</th>
+                        <th scope="col" class="text-right">Cantidad</th>
                         <th scope="col" class="text-right">Acciones</th>
                     </tr>
                 </thead>
@@ -23,13 +22,12 @@
                     <tr *ngFor="let item of products | async">
                         <td><img [src]="item.imgProduct" class="mr-3" [alt]="item.name" width="40"></td>
                         <td>{{item.name}}</td>
-                        <td>{{item.description}}</td>
                         <td class="text-center">${{item.price}}</td>
-                        <td>{{item.categories}}</td>
                         <td class="text-center">{{item.status}}</td>
+                        <td class="text-right">{{item.quantity}}</td>
                         <td class="text-right">
                             <button class="btn btn-info btn-sm" (click)="editProduct(item)">Editar</button>
-                            <button class="btn btn-danger btn-sm">Eliminar</button>
+                            <button class="btn btn-danger btn-sm" (click)="deleteProduct(item.id)">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -64,22 +62,31 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description">Descripción</label>
-                                <input class="form-control" type="description" name="description" id="description"
+                                <input class="form-control" type="text" name="description" id="description"
                                     [(ngModel)]="product.description" required>
                                 <span *ngIf="f.submitted && f.controls['description'].errors"
                                     class="text-danger animated fadeIn fast">La descripción es obligatoria</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="price">Precio</label>
-                                <input class="form-control" type="price" name="price" id="price"
+                                <input class="form-control" type="number" name="price" id="price"
                                     [(ngModel)]="product.price" required>
                                 <span *ngIf="f.submitted && f.controls['price'].errors"
                                     class="text-danger animated fadeIn fast">El precio es obligatorio</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="quantity">Cantidad</label>
+                                <input class="form-control" type="number" name="quantity" id="quantity"
+                                    [(ngModel)]="product.quantity" required>
+                                <span *ngIf="f.submitted && f.controls['quantity'].errors"
+                                    class="text-danger animated fadeIn fast">La cantidad es obligatoria</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Estado</label>
                                 <br>
@@ -90,19 +97,19 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <!-- <div class="form-group">
-                                <label for="category">Para el siguiente Servicio:</label>
-                                <select placeholder="Categoria" class="form-control" id="category" [(ngModel)]="product.categories">
-                                    <option *ngFor="let item of categoriesList" [value]="item.name">
+                            <div class="form-group">
+                                <label for="category">Categorias:</label>
+                                <select placeholder="Categorias"  class="form-control" multiple name="category" id="category" [(ngModel)]="product.categories">
+                                    <option *ngFor="let item of categoriesList | async" [value]="item.name">
                                         {{ item.name }}
                                     </option>
                                 </select>
-                            </div> -->
-                            <div class="form-group">
-                                <label for="category">Categoria</label>
-                                <input class="form-control" type="category" name="category" id="category"
-                                    [(ngModel)]="product.categories">
                             </div>
+                            <!-- <div class="form-group">
+                                <label for="category">Categoria</label>
+                                <input class="form-control" type="text" name="category" id="category"
+                                    [(ngModel)]="product.categories">
+                            </div> -->
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -151,7 +158,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description">Descripción</label>
-                                <input class="form-control" type="description" name="description" id="description"
+                                <input class="form-control" type="text" name="description" id="description"
                                     [(ngModel)]="product.description" required>
                                 <span *ngIf="f.submitted && f.controls['description'].errors"
                                     class="text-danger animated fadeIn fast">La descripción es obligatoria</span>
@@ -160,7 +167,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="price">Precio</label>
-                                <input class="form-control" type="price" name="price" id="price"
+                                <input class="form-control" type="text" name="price" id="price"
                                     [(ngModel)]="product.price" required>
                                 <span *ngIf="f.submitted && f.controls['price'].errors"
                                     class="text-danger animated fadeIn fast">El precio es obligatorio</span>
@@ -177,19 +184,19 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <!-- <div class="form-group">
-                                <label for="category">Para el siguiente Servicio:</label>
-                                <select placeholder="Categoria" class="form-control" id="category" [(ngModel)]="product.categories">
-                                    <option *ngFor="let item of categoriesList" [value]="item.name">
+                            <div class="form-group">
+                                <label for="category">Categorias:</label>
+                                <select placeholder="Categorias"  class="form-control" multiple name="category" id="category" [(ngModel)]="product.categories">
+                                    <option *ngFor="let item of categoriesList | async" [value]="item.name">
                                         {{ item.name }}
                                     </option>
                                 </select>
-                            </div> -->
-                            <div class="form-group">
-                                <label for="category">Categoria</label>
-                                <input class="form-control" type="category" name="category" id="category"
-                                    [(ngModel)]="product.categories">
                             </div>
+                            <!-- <div class="form-group">
+                                <label for="category">Categoria</label>
+                                <input class="form-control" type="text" name="category" id="category"
+                                    [(ngModel)]="product.categories">
+                            </div> -->
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -208,7 +215,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">
-                        Crear producto</button>
+                        Editar producto</button>
                 </div>
             </form>
         </div>

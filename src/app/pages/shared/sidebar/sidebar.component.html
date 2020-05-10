@@ -1,19 +1,21 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<nav id="sidebar">
 
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" [routerLink]="['/home']">
-      <div class="sidebar-brand-icon rotate-n-15">
-        <!-- <i class="fas fa-laugh-wink"></i> -->
-      </div>
-      <div class="sidebar-brand-text mx-3">MC</div>
-    </a>
+  <div class="sidebar-header">
+    <h3>MC</h3>
+  </div>
 
-    <hr class="sidebar-divider my-0">
-
-    <li class="nav-item active">
-      <a class="nav-link" [routerLink]="['/home']">
-        <i class="fab fa-product-hunt"></i>
-        <span>Productos</span></a>
+  <ul class="list-unstyled components">
+    <!-- <p>Dummy Heading</p> -->
+    <li routerLinkActive="active">
+      <a [routerLink]="['/home']">
+        <span>Productos</span>
+      </a>
     </li>
-
-
+    <li routerLinkActive="active">
+      <a [routerLink]="['/categories']">
+        <span>Categorias</span>
+      </a>
+    </li>
   </ul>
+
+</nav>

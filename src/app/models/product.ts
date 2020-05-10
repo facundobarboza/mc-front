@@ -7,6 +7,7 @@ export class Product {
     status: boolean;
     categories: string;
     fileRef?: string;
+    quantity: number;
 
     constructor() {
         this.status = true;

@@ -16,14 +16,9 @@
             </li>
         </ul>
         <span class="navbar-text">
-            <a class="btn btn-primary btn-sm" routerLink="/home" routerLinkActive="active" *ngIf="authService.isLoggedIn">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active" *ngIf="authService.isLoggedIn">
                 Admin
             </a>
         </span>
-        <!-- <div class="my-2 my-lg-0">
-            <a routerLink="/home" routerLinkActive="active" *ngIf="authService.userData$ | async">
-                <button mat-button>Admin</button>
-            </a>
-        </div> -->
     </div>
 </nav>

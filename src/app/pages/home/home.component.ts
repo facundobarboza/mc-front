@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+
 import { ProductService } from 'src/app/services/product.service';
+import { CategoryService } from 'src/app/services/category.service';
+
 import { Product } from 'src/app/models/product';
+import { Category } from 'src/app/models/category';
+
 import { Observable } from 'rxjs';
 
 import Swal from 'sweetalert2';
@@ -18,19 +23,17 @@ export class HomeComponent implements OnInit {
   forma: FormGroup;
   product = new Product;
   products: Observable<Product[]>;
+  categoriesList: Observable<Category[]>;
 
-  categoriesList = [
-    { id: 1, name: "Alimento" },
-    { id: 2, name: "Bebida" },
-    { id: 3, name: "Otro" }
-  ];
-
-  constructor(private formBuilder: FormBuilder, private productService: ProductService) {
+  constructor(private formBuilder: FormBuilder,
+    private productService: ProductService,
+    private categoryService: CategoryService) {
     this.crearFormulario();
   }
 
   ngOnInit(): void {
     this.products = this.productService.getAllProducts();
+    this.categoriesList = this.categoryService.getAll();
   }
 
   crearFormulario() {
@@ -38,13 +41,15 @@ export class HomeComponent implements OnInit {
       name: ['', Validators.required],
       price: ['', Validators.required],
       description: ['', Validators.required],
-      imgProduct: ['', Validators.required],
+      imgProduct: [''],
       status: ['', Validators.required],
       categories: ['', Validators.required],
+      quantity: ['', Validators.required],
     });
   }
 
   onSubmit(form: NgForm) {
+
     if (form.invalid) { return; }
 
     // Swal.fire({
@@ -53,10 +58,10 @@ export class HomeComponent implements OnInit {
     //   text: 'Espere por favor...'
     // });
     // Swal.showLoading();
-
     this.productService.preAddAndUpdatePost(this.product, this.image);
     // Swal.close();
     $('#addProduct').modal('hide');
+    $('#editProduct').modal('hide');
   }
 
   handleImage(event: any): void {
@@ -72,5 +77,35 @@ export class HomeComponent implements OnInit {
   editProduct(product: any) {
     this.product = product;
     $('#editProduct').modal('show');
+  }
+
+  deleteProduct(productId: any) {
+    Swal.fire({
+      title: "Atención",
+      text: '¿Está seguro de eliminar este producto? Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+      if (result.value) {
+        this.productService.deleteById(productId)
+          .then(response => {
+            Swal.fire(
+              'Buen trabajo!',
+              'Producto eliminado con éxito.',
+              'success'
+            )
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: 'Error al eliminar',
+              icon: 'error',
+              text: error.message
+            });
+          });
+      }
+    });
   }
 }

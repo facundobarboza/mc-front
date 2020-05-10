@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Categorias</h1>
+        <button (click)="addCategory()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Agregar nueva
+            categoria</button>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col" class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of categories | async">
+                        <td>{{item.name}}</td>
+                        <td class="text-right">
+                            <button class="btn btn-info btn-sm" (click)="editCategory(item)">Editar</button>
+                            <button class="btn btn-danger btn-sm" (click)="deleteCategory(item.id)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addCategoryLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryLabel">Agregar categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input class="form-control" type="text" name="name" id="name" [(ngModel)]="category.name"
+                                    required minlength="2">
+                                <span *ngIf="f.submitted && f.controls['name'].errors"
+                                    class="text-danger animated fadeIn fast">El
+                                    nombre es obligatorio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">
+                        Crear categoria</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCategory" tabindex="-1" role="dialog" aria-labelledby="editCategoryLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCategoryLabel">Editar categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input class="form-control" type="text" name="name" id="name" [(ngModel)]="category.name"
+                                    required minlength="2">
+                                <span *ngIf="f.submitted && f.controls['name'].errors"
+                                    class="text-danger animated fadeIn fast">El
+                                    nombre es obligatorio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">
+                        Crear categoria</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

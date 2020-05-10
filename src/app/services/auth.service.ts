@@ -27,12 +27,12 @@ export class AuthService {
   login(user: User) {
     return this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password)
       .then((response) => {
-        console.log('registar response: ', response);
+        console.log('login response: ', response);
 
-        this.setUserData(response.user);
+        // this.setUserData(response.user);
       })
       .catch((error) => {
-        console.log('Error al registrase: ', error.message);
+        console.log('Error al loguearse: ', error.message);
       });
   }
 
