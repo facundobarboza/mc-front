@@ -23,4 +23,8 @@ export class ProductComponent implements OnInit {
     this.product$ = this.productService.getById(idPost);
   }
 
+  back() {
+    window.history.back();
+  }
+
 }

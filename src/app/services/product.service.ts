@@ -58,6 +58,7 @@ export class ProductService {
             imgProduct: this.downloadURL,
             price: product.price,
             status: product.status,
+            principal: product.principal,
             categories: product.categories,
             fileRef: this.filePath,
             quantity: product.quantity
@@ -109,6 +110,24 @@ export class ProductService {
             .collection<Product>('products',
                 ref => ref
                     .where('categories', 'array-contains', search)
+            )
+            .snapshotChanges()
+            .pipe(
+                map(actions =>
+                    actions.map(a => {
+                        const data = a.payload.doc.data() as Product;
+                        const id = a.payload.doc.id;
+                        return { id, ...data };
+                    })
+                )
+            );
+    }
+
+    getAllPrincipal() {
+        return this.angularFirestore
+            .collection<Product>('products',
+                ref => ref
+                    .where('principal', '==', true)
             )
             .snapshotChanges()
             .pipe(

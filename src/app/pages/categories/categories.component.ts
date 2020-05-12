@@ -28,7 +28,9 @@ export class CategoriesComponent implements OnInit {
 
   crearFormulario() {
     this.forma = this.formBuilder.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      icon: ['']
     });
   }
 

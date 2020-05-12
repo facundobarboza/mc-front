@@ -5,11 +5,13 @@ export class Product {
     imgProduct?: any;
     price: number;
     status: boolean;
+    principal: boolean;
     categories: string;
     fileRef?: string;
     quantity: number;
 
     constructor() {
         this.status = true;
+        this.principal = false;
     }
 }

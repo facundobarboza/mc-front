@@ -43,13 +43,13 @@ export class HomeComponent implements OnInit {
       description: ['', Validators.required],
       imgProduct: [''],
       status: ['', Validators.required],
+      principal: ['', Validators.required],
       categories: ['', Validators.required],
       quantity: ['', Validators.required],
     });
   }
 
   onSubmit(form: NgForm) {
-
     if (form.invalid) { return; }
 
     // Swal.fire({
@@ -58,7 +58,11 @@ export class HomeComponent implements OnInit {
     //   text: 'Espere por favor...'
     // });
     // Swal.showLoading();
-    this.productService.preAddAndUpdatePost(this.product, this.image);
+    if (this.image && this.image.name) {
+      this.productService.preAddAndUpdatePost(this.product, this.image);
+    } else {
+      this.productService.editPostById(this.product);
+    }
     // Swal.close();
     $('#addProduct').modal('hide');
     $('#editProduct').modal('hide');

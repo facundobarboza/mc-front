@@ -14,16 +14,20 @@
                         <th scope="col">Nombre</th>
                         <th scope="col" class="text-center">Precio</th>
                         <th scope="col" class="text-center">Estado</th>
+                        <th scope="col" class="text-center">Principal</th>
                         <th scope="col" class="text-right">Cantidad</th>
                         <th scope="col" class="text-right">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of products | async">
-                        <td><img [src]="item.imgProduct" class="mr-3" [alt]="item.name" width="40"></td>
+                        <td><img [src]="item.imgProduct" class="mr-3" [alt]="item.name" width="40" style="max-height: 30px;"></td>
                         <td>{{item.name}}</td>
                         <td class="text-center">${{item.price}}</td>
-                        <td class="text-center">{{item.status}}</td>
+                        <td class="text-center">
+                            <span [ngClass]="{'badge-success': item.status, 'badge-danger': !item.status}" class="badge">{{item.status ? 'Activo' : 'Inactivo'}}</span>
+                        </td>
+                        <td class="text-center"><i *ngIf="item.principal" class="fas fa-check text-primary"></i></td>
                         <td class="text-right">{{item.quantity}}</td>
                         <td class="text-right">
                             <button class="btn btn-info btn-sm" (click)="editProduct(item)">Editar</button>
@@ -77,7 +81,7 @@
                                     class="text-danger animated fadeIn fast">El precio es obligatorio</span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="quantity">Cantidad</label>
                                 <input class="form-control" type="number" name="quantity" id="quantity"
@@ -86,7 +90,7 @@
                                     class="text-danger animated fadeIn fast">La cantidad es obligatoria</span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Estado</label>
                                 <br>
@@ -96,10 +100,21 @@
                                     class="btn btn-danger w-100">Inactivo</button>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Destacar</label>
+                                <br>
+                                <button type="button" *ngIf="product.principal" (click)="product.principal = false"
+                                    class="btn btn-success w-100">Si</button>
+                                <button type="button" *ngIf="!product.principal" (click)="product.principal = true"
+                                    class="btn btn-danger w-100">No</button>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="category">Categorias:</label>
-                                <select placeholder="Categorias"  class="form-control" multiple name="category" id="category" [(ngModel)]="product.categories">
+                                <select placeholder="Categorias" class="form-control" multiple name="category"
+                                    id="category" [(ngModel)]="product.categories">
                                     <option *ngFor="let item of categoriesList | async" [value]="item.name">
                                         {{ item.name }}
                                     </option>
@@ -116,7 +131,8 @@
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="imagePost"
                                         (change)="handleImage($event)">
-                                    <label class="custom-file-label" for="customFile">{{image.name ? image.name : 'Seleccione imagen'}}</label>
+                                    <label class="custom-file-label"
+                                        for="customFile">{{image.name ? image.name : 'Seleccione imagen'}}</label>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +180,7 @@
                                     class="text-danger animated fadeIn fast">La descripción es obligatoria</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="price">Precio</label>
                                 <input class="form-control" type="text" name="price" id="price"
@@ -173,7 +189,16 @@
                                     class="text-danger animated fadeIn fast">El precio es obligatorio</span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="quantity">Cantidad</label>
+                                <input class="form-control" type="number" name="quantity" id="quantity"
+                                    [(ngModel)]="product.quantity" required>
+                                <span *ngIf="f.submitted && f.controls['quantity'].errors"
+                                    class="text-danger animated fadeIn fast">La cantidad es obligatoria</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Estado</label>
                                 <br>
@@ -183,10 +208,21 @@
                                     class="btn btn-danger w-100">Inactivo</button>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Destacar</label>
+                                <br>
+                                <button type="button" *ngIf="product.principal" (click)="product.principal = false"
+                                    class="btn btn-success w-100">Si</button>
+                                <button type="button" *ngIf="!product.principal" (click)="product.principal = true"
+                                    class="btn btn-danger w-100">No</button>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="category">Categorias:</label>
-                                <select placeholder="Categorias"  class="form-control" multiple name="category" id="category" [(ngModel)]="product.categories">
+                                <select placeholder="Categorias" class="form-control" multiple name="category"
+                                    id="category" [(ngModel)]="product.categories">
                                     <option *ngFor="let item of categoriesList | async" [value]="item.name">
                                         {{ item.name }}
                                     </option>

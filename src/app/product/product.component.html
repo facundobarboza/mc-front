@@ -3,15 +3,20 @@
 <ng-container>
     <div class="container" *ngIf="product$ | async as product; else loading">
         <div class="row mt-5 mb-5 animated fadeIn fast">
-            <div class="col-md-4">
-                <img [src]="product.imgProduct" class="img-fluid">
+            <div class="col-md-4 text-center" style="background-color: white; height: 400px;">
+                <img [src]="product.imgProduct" class="img-fluid" style="height: 100%;
+                -o-object-fit: contain;
+                object-fit: contain;
+                -o-object-position: center center;
+                object-position: center center;">
                 <br>
             </div>
             <div class="col-md-8">
-                <h3>{{product.name}} <small>${{product.price}}</small></h3>
+                <h3>{{product.name}} <small class="text-dist">${{product.price}}</small></h3>
                 <hr>
                 <p>{{product.description}}</p>
-                <button type="button" class="btn btn-info btn-sm" [routerLink]="['/products']">Volver</button>
+                <!-- <button type="button" class="btn btn-info btn-sm" [routerLink]="['/products']">Volver</button> -->
+                <button type="button" class="btn btn-info btn-sm" (click)="back()">Volver</button>
                 <button type="button" class="btn btn-dist btn-sm">Agregar al carrito</button>
             </div>
         </div>

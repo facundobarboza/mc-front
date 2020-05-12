@@ -42,6 +42,8 @@ export class CategoryService {
     saveCategory(category: Category) {
         const categoryObj = {
             name: category.name,
+            description: category.description,
+            icon: category.icon
         };
         if (category.id) {
             return this.categoriesCollection.doc(category.id).update(categoryObj);
