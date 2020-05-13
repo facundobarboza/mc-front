@@ -7,5 +7,6 @@ export class Category {
 
     constructor() {
         this.principal = false;
+        this.icon = '';
     }
 }
