@@ -15,8 +15,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  productsCount(){
-return this.cartService.productsCount();
+  productsCount() {
+    return this.cartService.productsCount();
   }
-
 }
