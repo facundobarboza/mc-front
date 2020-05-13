@@ -52,52 +52,46 @@
     </div> -->
     <div class="row mb-5 justify-content-center">
         <div class="col-md-6 mt-2 mb-2" *ngFor="let category of categories | async">
-                <div class="card h-100 card-mc">
-                    <!-- <img src="./../../../assets/images/category-4.jpg" class="card-img-top" alt="..."> -->
-                    <div class="card-body row no-gutters align-items-center">
-                        <div class="col-md-9">
-                            <h5 class="card-title">{{category.name}}</h5>
-                            <p class="card-text white-space-normal">{{category.description}}</p>
-                        </div>
-                        <div class="col-md-3 text-center d-none d-lg-block">
-                            <i [ngClass]="category.icon" class="fas fa-4x text-black-50"></i>
-                        </div>
+            <div class="card h-100 card-mc">
+                <!-- <img src="./../../../assets/images/category-4.jpg" class="card-img-top" alt="..."> -->
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-md-9">
+                        <h5 class="card-title">{{category.name}}</h5>
+                        <p class="card-text white-space-normal">{{category.description}}</p>
                     </div>
-                    <div class="card-footer background-white">
-                        <button [routerLink]="['/products', category.name]" class="btn btn-primary">Ver productos</button>
-                        <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                      </div>
+                    <div class="col-md-3 text-center d-none d-lg-block">
+                        <i [ngClass]="category.icon" class="fas fa-4x text-black-50"></i>
+                    </div>
                 </div>
+                <div class="card-footer background-white">
+                    <button [routerLink]="['/products', category.name]" class="btn btn-primary">Ver productos</button>
+                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                </div>
+            </div>
         </div>
     </div>
 
-    <ng-container *ngIf="products && (products | async).length > 0; else nothing">
-        <div class="row justify-content-center">
-            <div class="col-md-12 heading-section text-center text-uppercase ftco-animate fadeInUp ftco-animated">
-                <span class="subheading">Productos destacados</span>
-                <h2 class="mb-4">Nuestros productos</h2>
-                <!-- <p>Muy lejos, detrás de la palabra montañas, lejos de los países Vokalia y Consonantia</p> -->
-            </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12 heading-section text-center text-uppercase ftco-animate fadeInUp ftco-animated">
+            <span class="subheading">Productos destacados</span>
+            <h2 class="mb-4">Nuestros productos</h2>
+            <!-- <p>Muy lejos, detrás de la palabra montañas, lejos de los países Vokalia y Consonantia</p> -->
         </div>
-        <div class="row mb-5 justify-content-center">
-            <div class="col-md-6 col-lg-3 mt-2 mb-2" *ngFor="let product of products | async">
-                <div class="card card-mc animated fadeIn fast cursor-pointer" (click)="detail(product.id)">
-                    <div class="box">
-                        <img [src]="product.imgProduct" class="" [alt]="product.name">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fa-1x">{{product.name}}</h5>
-                        <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
-                        <p class="card-text">{{product.description}}</p>
-                    </div>
+    </div>
+    <div class="row mb-5 justify-content-center">
+        <div class="col-md-6 col-lg-3 mt-2 mb-2" *ngFor="let product of products | async">
+            <div class="card card-mc animated fadeIn fast cursor-pointer" (click)="detail(product.id)">
+                <div class="box">
+                    <img [src]="product.imgProduct" class="" [alt]="product.name">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title fa-1x">{{product.name}}</h5>
+                    <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
+                    <p class="card-text">{{product.description}}</p>
                 </div>
             </div>
         </div>
-    </ng-container>
-    <ng-template #nothing>
-
-    </ng-template>
-
+    </div>
 </div>
 
 <app-footer></app-footer>
