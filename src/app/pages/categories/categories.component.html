@@ -19,7 +19,7 @@
                         <td>{{item.name}}</td>
                         <td class="text-right">
                             <button class="btn btn-info btn-sm" (click)="editCategory(item)">Editar</button>
-                            <button class="btn btn-danger btn-sm" (click)="deleteCategory(item.id)">Eliminar</button>
+                            <!-- <button class="btn btn-danger btn-sm" (click)="deleteCategory(item.id)">Eliminar</button> -->
                         </td>
                     </tr>
                 </tbody>
@@ -56,6 +56,14 @@
                                     [(ngModel)]="category.description" required minlength="2">
                                 <span *ngIf="f.submitted && f.controls['description'].errors"
                                     class="text-danger animated fadeIn fast">La descripción es obligatoria</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Destacar</label>
+                                <br>
+                                <button type="button" *ngIf="category.principal" (click)="category.principal = false"
+                                    class="btn btn-success w-100">Si</button>
+                                <button type="button" *ngIf="!category.principal" (click)="category.principal = true"
+                                    class="btn btn-danger w-100">No</button>
                             </div>
                             <div class="form-group">
                                 <label for="icon">Icon</label>
@@ -103,6 +111,14 @@
                                     [(ngModel)]="category.description" required minlength="2">
                                 <span *ngIf="f.submitted && f.controls['description'].errors"
                                     class="text-danger animated fadeIn fast">La descripción es obligatoria</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Destacar</label>
+                                <br>
+                                <button type="button" *ngIf="category.principal" (click)="category.principal = false"
+                                    class="btn btn-success w-100">Si</button>
+                                <button type="button" *ngIf="!category.principal" (click)="category.principal = true"
+                                    class="btn btn-danger w-100">No</button>
                             </div>
                             <div class="form-group">
                                 <label for="icon">Icon</label>

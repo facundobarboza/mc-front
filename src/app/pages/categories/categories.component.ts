@@ -30,6 +30,7 @@ export class CategoriesComponent implements OnInit {
     this.forma = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
+      principal: ['', Validators.required],
       icon: ['']
     });
   }

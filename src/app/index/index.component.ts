@@ -20,7 +20,7 @@ export class IndexComponent implements OnInit {
   constructor(private router: Router, private categoryService: CategoryService, private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getAll();
+    this.categories = this.categoryService.getAllPrincipal();
     this.getAllPrincipal();
   }
 

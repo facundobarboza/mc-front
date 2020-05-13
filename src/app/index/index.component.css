@@ -70,10 +70,19 @@
     overflow: hidden;
 }
 
+.white-space-normal {
+    white-space: normal;
+}
+
 .card-body, .card-footer {
     width: 100%;
 }
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.card-footer.background-white {
+    background-color: white;
+    border-top: none;
 }

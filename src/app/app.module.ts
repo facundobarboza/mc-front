@@ -39,6 +39,7 @@ import { SidebarComponent } from './pages/shared/sidebar/sidebar.component';
 import { NavbarAdminComponent } from './pages/shared/navbar-admin/navbar-admin.component';
 import { Page404Component } from './page404/page404.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ProfileComponent } from './profile/profile.component';
     SidebarComponent,
     NavbarAdminComponent,
     Page404Component,
-    ProfileComponent
+    ProfileComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

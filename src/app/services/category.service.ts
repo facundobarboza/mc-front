@@ -43,6 +43,7 @@ export class CategoryService {
         const categoryObj = {
             name: category.name,
             description: category.description,
+            principal: category.principal,
             icon: category.icon
         };
         if (category.id) {
@@ -50,5 +51,23 @@ export class CategoryService {
         } else {
             return this.categoriesCollection.add(categoryObj);
         }
+    }
+
+    getAllPrincipal() {
+        return this.angularFirestore
+            .collection<Category>('categories',
+                ref => ref
+                    .where('principal', '==', true)
+            )
+            .snapshotChanges()
+            .pipe(
+                map(actions =>
+                    actions.map(a => {
+                        const data = a.payload.doc.data() as Category;
+                        const id = a.payload.doc.id;
+                        return { id, ...data };
+                    })
+                )
+            );
     }
 }
