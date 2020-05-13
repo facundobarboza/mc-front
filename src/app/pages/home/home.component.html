@@ -12,6 +12,7 @@
                     <tr>
                         <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
                         <th scope="col" class="text-center">Precio</th>
                         <th scope="col" class="text-center">Estado</th>
                         <th scope="col" class="text-center">Principal</th>
@@ -23,6 +24,7 @@
                     <tr *ngFor="let item of products | async">
                         <td><img [src]="item.imgProduct" class="mr-3" [alt]="item.name" width="40" style="max-height: 30px;"></td>
                         <td>{{item.name}}</td>
+                        <td>{{item.description}}</td>
                         <td class="text-center">${{item.price}}</td>
                         <td class="text-center">
                             <span [ngClass]="{'badge-success': item.status, 'badge-danger': !item.status}" class="badge">{{item.status ? 'Activo' : 'Inactivo'}}</span>
@@ -183,7 +185,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="price">Precio</label>
-                                <input class="form-control" type="text" name="price" id="price"
+                                <input class="form-control" type="number" name="price" id="price"
                                     [(ngModel)]="product.price" required>
                                 <span *ngIf="f.submitted && f.controls['price'].errors"
                                     class="text-danger animated fadeIn fast">El precio es obligatorio</span>
