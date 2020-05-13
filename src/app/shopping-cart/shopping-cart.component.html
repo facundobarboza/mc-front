@@ -1,1 +1,53 @@
-<p>shopping-cart works!</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row m-5" *ngIf="productsToCard && productsToCard.length > 0; else alert">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col" class="text-right">Precio</th>
+                    <th scope="col" class="text-center">Cantidad</th>
+                    <th scope="col" class="text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let productToCard of productsToCard; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>
+                        <span class="product-name">{{productToCard.name}}</span>
+                        <span class="product-description">{{productToCard.description}}</span>
+                    </td>
+                    <td class="text-right">{{productToCard.price | currency}}</td>
+                    <td class="text-center" style="width: 10%;">
+                        <input type="number" style="text-align: center;" name="count" class="form-control"
+                            [(ngModel)]="productToCard.count" id="count" min="1" value="1">
+                    </td>
+                    <td class="text-right">{{ productToCard.price * productToCard.count | currency}}</td>
+                    <td class="text-center"><button class="btn btn-sm btn-danger"
+                            (click)="deleteProduct(productToCard, i)" title="Eliminar"><i
+                                class="fas fa-trash-alt"></i></button></td>
+                </tr>
+                <tr class="text-right text-uppercase font-weight-bold">
+                    <td colspan="3">Total</td>
+                    <td>{{returnTotalCount()}}</td>
+                    <td>{{returnTotal() | currency}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #alert>
+        <div class="row m-5">
+            <div class="col-md-12 text-center">
+                <div class="alert alert-light" role="alert">
+                    <p class="lead text-gray-800">No tiene productos en su carrito!</p>
+                    <p class="text-gray-500 mb-0">Los productos que seleccione los podrá ver aquí</p>
+                    <a routerLink="/products">Ver productos</a>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<!-- <app-footer></app-footer> -->

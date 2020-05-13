@@ -31,6 +31,7 @@ const APP_ROUTES: Routes = [
     { path: '', component: IndexComponent },
     { path: 'index', component: IndexComponent },
     { path: 'products', component: ProductsComponent },
+    { path: 'products/:categoryname', component: ProductsComponent },
     { path: 'product/:id', component: ProductComponent },
     { path: 'shopping-cart', component: ShoppingCartComponent },
     { path: 'register', component: RegisterComponent },

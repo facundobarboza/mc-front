@@ -16,7 +16,7 @@
                 <label class="btn btn-dist">
                     <input type="radio" name="options" id="all" (click)="getAllProducts()"> Todas
                 </label>
-                <label class="btn btn-dist" *ngFor="let category of categories | async">
+                <label class="btn btn-dist" [ngClass]="{'active': categoryName == category.name}" *ngFor="let category of categories | async">
                     <input type="radio" name="options" [id]="category.id" (click)="filterByCategoryName(category.name)">
                     {{category.name}}
                 </label>

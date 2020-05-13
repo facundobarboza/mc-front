@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="card-footer background-white">
-                        <button routerLink="/products" class="btn btn-primary">Ver productos</button>
+                        <button [routerLink]="['/products', category.name]" class="btn btn-primary">Ver productos</button>
                         <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
                       </div>
                 </div>

@@ -89,8 +89,8 @@ export class HomeComponent implements OnInit {
       text: '¿Está seguro de eliminar este producto? Esta acción no se puede deshacer.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#d33',
+      // cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminar'
     }).then((result) => {
       if (result.value) {

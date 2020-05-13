@@ -18,6 +18,7 @@ import { APP_ROUTING } from './app.routes';
 // Services
 import { ProductService } from './services/product.service';
 import { CategoryService } from './services/category.service';
+import { CartService } from './services/cart.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -78,7 +79,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
   providers: [
     { provide: BUCKET, useValue: 'gs://mc-front.appspot.com' },
     ProductService,
-    CategoryService
+    CategoryService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })
