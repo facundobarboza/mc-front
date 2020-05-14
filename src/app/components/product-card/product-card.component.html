@@ -1,9 +1,9 @@
-<div class="card card-mc animated fadeIn fast">
+<div class="card h-100 card-mc animated fadeIn fast">
     <div class="box">
-        <img [src]="product.imgProduct" class="" alt="...">
+        <img [src]="product.imgProduct" class="" [alt]="product.name">
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{product.name}}</h5>
+        <h6 class="card-title">{{product.name}}</h6>
         <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
         <p class="card-text">{{product.description}}</p>
     </div>

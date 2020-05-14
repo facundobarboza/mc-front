@@ -80,7 +80,7 @@
     </div>
     <div class="row mb-5 justify-content-center">
         <div class="col-md-6 col-lg-3 mt-2 mb-2" *ngFor="let product of products | async">
-            <div class="card card-mc animated fadeIn fast cursor-pointer" (click)="detail(product.id)">
+            <div class="card h-100 card-mc animated fadeIn fast cursor-pointer" (click)="detail(product.id)">
                 <div class="box">
                     <img [src]="product.imgProduct" class="" [alt]="product.name">
                 </div>

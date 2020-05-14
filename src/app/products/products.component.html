@@ -12,11 +12,11 @@
     </div> -->
     <div class="row">
         <div class="col mt-5">
-            <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-                <label class="btn btn-dist">
+            <div class="btn-block btn-group btn-group-toggle text-uppercase" data-toggle="buttons">
+                <label class="btn btn-dist font-weight-lighter">
                     <input type="radio" name="options" id="all" (click)="getAllProducts()"> Todas
                 </label>
-                <label class="btn btn-dist" [ngClass]="{'active': categoryName == category.name}" *ngFor="let category of categories | async">
+                <label class="btn btn-dist font-weight-lighter" [ngClass]="{'active': categoryName == category.name}" *ngFor="let category of categories | async">
                     <input type="radio" name="options" [id]="category.id" (click)="filterByCategoryName(category.name)">
                     {{category.name}}
                 </label>
@@ -36,7 +36,7 @@
                 <button type="button" class="btn btn-dist btn-sm">Agregar al carrito</button>
             </div>
         </div> -->
-        <app-product-card class="col-md-4 col-sm-6 mb-3 p-0" [product]="product"
+        <app-product-card class="col-lg-3 col-md-4 col-sm-6 mb-3 p-0" [product]="product"
             *ngFor="let product of products | async"></app-product-card>
     </div>
 </div>
