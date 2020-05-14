@@ -10,11 +10,15 @@ export class CartService {
     let temp: any = product;
     let productsList = JSON.parse(localStorage.getItem('productsToCard'));
 
-    if (!productsList.find((x: any) => x.id === temp.id)) {
+    if (!productsList) { productsList = []; }
+
+    if (productsList && productsList.find((x: any) => x.id === temp.id)) {
+      return;
+    } else {
       temp.count = 1;
       productsList.push(temp);
       localStorage.setItem('productsToCard', JSON.stringify(productsList));
-    };
+    }
   }
 
   deleteProduct(product: Product, index: number) {
@@ -26,6 +30,6 @@ export class CartService {
 
   productsCount() {
     let productsList = JSON.parse(localStorage.getItem('productsToCard'));
-    return productsList.length;
+    return productsList ? productsList.length : 0;
   }
 }
