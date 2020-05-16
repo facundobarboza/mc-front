@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product';
 
-import Swal from 'sweetalert2';
 import { CartService } from '../services/cart.service';
+import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -14,10 +16,17 @@ export class ShoppingCartComponent implements OnInit {
   productsToCard: any[];
   total: number = 0;
 
-  constructor(private cartService: CartService) { }
+  constructor(private router: Router, private cartService: CartService) {
+  }
 
   ngOnInit(): void {
     this.productsToCard = JSON.parse(localStorage.getItem('productsToCard'));
+    if (this.productsToCard && this.productsToCard.length > 0) {
+
+      for (let index = 0; index < this.productsToCard.length; index++) {
+        this.productsToCard[index].stock = Array(this.productsToCard[index].quantity).map((x, i) => i);
+      }
+    }
   }
 
   returnTotal() {
@@ -53,5 +62,21 @@ export class ShoppingCartComponent implements OnInit {
         )
       }
     });
+  }
+
+  checkValue(count: any, index: any) {
+    if (count <= 0) {
+      this.productsToCard[index].count = 1;
+    } else if (count > this.productsToCard[index].quantity) {
+      this.productsToCard[index].count = this.productsToCard[index].quantity;
+    }
+  }
+
+  confirmOrder() {
+    debugger;
+    if (this.productsToCard) {
+      localStorage.setItem('order', JSON.stringify(this.productsToCard));
+      this.router.navigateByUrl('/confirm-order');
+    }
   }
 }

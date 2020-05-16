@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="row m-5" *ngIf="order && order.length > 0; else alert">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">cliento</th>
+                            <th scope="col" class="text-right">Precio</th>
+                            <th scope="col" class="text-center">Cantidad</th>
+                            <th scope="col" class="text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of order; let i = index">
+                            <td>
+                                <span class="client-name">{{item.name}}</span>
+                                <span class="client-description">{{item.description}}</span>
+                            </td>
+                            <td class="text-right">{{item.price | currency}}</td>
+                            <td class="text-center">{{ item.count }}</td>
+                            <td class="text-right">{{ item.price * item.count | currency}}</td>
+                        </tr>
+                        <tr class="text-right text-uppercase font-weight-bold">
+                            <td colspan="2">Total</td>
+                            <td class="text-center">{{returnTotalCount()}}</td>
+                            <td>{{returnTotal() | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row m-5">
+        <div class="col-md-12">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input class="form-control" type="text" name="name" id="name" [(ngModel)]="client.name"
+                                required minlength="2">
+                            <span *ngIf="f.submitted && f.controls['name'].errors"
+                                class="text-danger animated fadeIn fast">El
+                                nombre es obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="surname">Apellido</label>
+                            <input class="form-control" type="text" name="surname" id="surname" [(ngModel)]="client.surname"
+                                required minlength="2">
+                            <span *ngIf="f.submitted && f.controls['surname'].errors"
+                                class="text-danger animated fadeIn fast">El
+                                apellido es obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input class="form-control" type="phone" name="phone" id="phone" [(ngModel)]="client.phone"
+                                required minlength="2">
+                            <span *ngIf="f.submitted && f.controls['phone'].errors"
+                                class="text-danger animated fadeIn fast">El
+                                teléfono es obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="observation">Observación (Opcional)</label>
+                            <textarea class="form-control" id="observation" name="observation"
+                                [(ngModel)]="client.observation" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary">Enviar pedido</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ng-template #alert>
+        <div class="row m-5">
+            <div class="col-md-12 text-center">
+                <div class="alert alert-light" role="alert">
+                    <p class="lead text-gray-800 mb-5">No posee pedido</p>
+                    <p class="text-gray-500 mb-0">La confirmación de su pedido lo verá aquí</p>
+                    <a routerLink="/index">&larr; Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<!-- <app-footer></app-footer> -->
