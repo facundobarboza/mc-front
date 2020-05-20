@@ -69,9 +69,11 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="observation">Observación (Opcional)</label>
-                            <textarea class="form-control" id="observation" name="observation"
-                                [(ngModel)]="client.observation" rows="3"></textarea>
+                            <label for="observation">Déjenos los horarios en los que prefiere ser contactado</label>
+                            <textarea placeholder="Ej: Prefiero que me llamen después de las 18 horas" class="form-control" id="observation" name="observation"
+                                [(ngModel)]="client.observation" rows="3" required></textarea>
+                                <span *ngIf="f.submitted && f.controls['observation'].errors"
+                                class="text-danger animated fadeIn fast">Mensaje obligatorio</span>
                         </div>
                     </div>
                 </div>

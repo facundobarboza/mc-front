@@ -39,8 +39,6 @@ export class AuthService {
   register(user: User) {
     return this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password)
       .then((response) => {
-        console.log('registar response: ', response);
-
         this.setUserData(response.user);
       })
       .catch((error) => {

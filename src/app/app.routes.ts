@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { Page404Component } from './page404/page404.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
+import { OrderComponent } from './pages/order/order.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -25,6 +26,7 @@ const APP_ROUTES: Routes = [
         children: [
             { path: 'home', component: HomeComponent },
             { path: 'categories', component: CategoriesComponent },
+            { path: 'orders', component: OrderComponent },
             { path: 'profile', component: ProfileComponent },
             { path: '', pathMatch: 'full', redirectTo: '/index' }
         ]

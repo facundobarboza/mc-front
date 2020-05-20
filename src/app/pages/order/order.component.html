@@ -1,0 +1,111 @@
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Pedidos</h1>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Observación</th>
+                        <th scope="col" class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of orders | async">
+                        <td>{{item.created.toDate() | date: 'dd/MM/yyyy - HH:mm'}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.surname}}</td>
+                        <td>{{item.phone}}</td>
+                        <td>{{item.observation}}</td>
+                        <td class="text-right">
+                            <button class="btn btn-info btn-sm" (click)="detailOrder(item)">Detalle</button>
+                            <button class="btn btn-danger btn-sm">Confirmar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detailOrder" tabindex="-1" role="dialog" aria-labelledby="detailOrderLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailOrderLabel">
+                    Detalle del pedido
+                    <h6 class="mb-0" *ngIf="orderDetail && orderDetail.created">
+                        {{orderDetail.created.toDate() | date: 'dd/MM/yyyy - HH:mm'}}
+                    </h6>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Cliente: {{orderDetail.name}} {{orderDetail.surname}}</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Teléfono: {{orderDetail.phone}}</h6>
+                    </div>
+                    <div class="col-md-12">
+                        <h6>Observación: {{orderDetail.observation}}</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">cliento</th>
+                                        <th scope="col" class="text-right">Precio</th>
+                                        <th scope="col" class="text-center">Cantidad</th>
+                                        <th scope="col" class="text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of orderDetail.products; let i = index">
+                                        <td>
+                                            <span class="client-name">{{item.name}}</span>
+                                            <span class="client-description">{{item.description}}</span>
+                                        </td>
+                                        <td class="text-right">{{item.price | currency}}</td>
+                                        <td class="text-center">{{item.count}}</td>
+                                        <td class="text-right">{{item.price * item.count | currency}}</td>
+                                    </tr>
+                                    <tr class="text-right text-uppercase font-weight-bold">
+                                        <td colspan="2">Total</td>
+                                        <td class="text-center">{{orderDetail.subtotal}}</td>
+                                        <td>{{orderDetail.total | currency}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -73,7 +73,6 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   confirmOrder() {
-    debugger;
     if (this.productsToCard) {
       localStorage.setItem('order', JSON.stringify(this.productsToCard));
       this.router.navigateByUrl('/confirm-order');

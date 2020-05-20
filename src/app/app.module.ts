@@ -42,6 +42,7 @@ import { Page404Component } from './page404/page404.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
+import { OrderComponent } from './pages/order/order.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
     Page404Component,
     ProfileComponent,
     ShoppingCartComponent,
-    ConfirmOrderComponent
+    ConfirmOrderComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

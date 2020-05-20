@@ -29,8 +29,9 @@ export class ConfirmOrderComponent implements OnInit {
   crearFormulario() {
     this.forma = this.formBuilder.group({
       name: ['', Validators.required],
+      surname: ['', Validators.required],
       phone: ['', Validators.required],
-      observation: ['']
+      observation: ['', Validators.required]
     });
   }
 
@@ -49,7 +50,6 @@ export class ConfirmOrderComponent implements OnInit {
   }
 
   confirmOrder() {
-    debugger;
     if (this.order) {
       localStorage.setItem('order', JSON.stringify(this.order));
       this.router.navigateByUrl('/confirm-order');
