@@ -1,43 +1,53 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-    <!-- <div class="input-group mt-5 mb-5 animated fadeIn fast">
-        <input type="text" class="form-control" placeholder="Escriba el nombre del producto" (keyup.enter)="searchProduct(searchText.value)" #searchText>
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchProduct(searchText.value)">Buscar</button>
-        </div>
-    </div> -->
-    <!-- <div class="alert alert-secondary animated fadeIn fast" *ngIf="products.length == .length == 0">
-        No se encontraron productos
-    </div> -->
     <div class="row">
-        <div class="col mt-5">
-            <div class="btn-block btn-group btn-group-toggle text-uppercase" data-toggle="buttons">
+        <div class="col mt-5 d-none d-md-flex d-lg-flex">
+            <div class="btn-block btn-group btn-group-toggle text-uppercase animated fadeIn fast" data-toggle="buttons">
                 <label class="btn btn-dist font-weight-lighter">
                     <input type="radio" name="options" id="all" (click)="getAllProducts()"> Todas
                 </label>
-                <label class="btn btn-dist font-weight-lighter" [ngClass]="{'active': categoryName == category.name}" *ngFor="let category of categories | async">
+                <label class="btn btn-dist font-weight-lighter" [ngClass]="{'active': categoryName == category.name}"
+                    *ngFor="let category of categories">
                     <input type="radio" name="options" [id]="category.id" (click)="filterByCategoryName(category.name)">
                     {{category.name}}
                 </label>
             </div>
         </div>
+        <div class="col mt-3 d-md-none">
+            <div class="form-group animated fadeIn fast">
+                <!-- <label for="categories">CATEGORIAS</label> -->
+                <select class="text-uppercase form-control" id="categories"
+                    [(ngModel)]="categorySelect"
+                    (ngModelChange)="filterByCategoryName(categorySelect.name)">
+                    <option value="" selected>Todas</option>
+                    <option *ngFor="let category of categories" [ngValue]="category">
+                        {{ category.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
     </div>
-    <div class="card-deck mt-5 mb-5">
-        <!-- <div class="card animated fadeIn fast" *ngFor="let product of products | async">
-            <img [src]="product.imgProduct" class="card-img-top" [alt]="product.name">
-            <div class="card-body">
-                <h5 class="card-title">{{product.name}}</h5>
-                <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
-                <p class="card-text">{{product.description}}</p>
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">
+        <div class="col mt-3 mb-3" *ngFor="let product of products">
+
+            <div class="card h-100 card-mc animated fadeIn fast">
+                <div class="box">
+                    <img [src]="product.imgProduct" class="" [alt]="product.name">
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title">{{product.name}}</h6>
+                    <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
+                    <p class="card-text text-muted">{{product.description}}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <div class="btn-group btn-group-sm btn-block">
+                        <button type="button" class="btn btn-info" (click)="detail(product)"><i class="fas fa-info"></i></button>
+                        <button type="button" class="btn btn-dist" (click)="addToCart(product)"><i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer text-center">
-                <button type="button" class="btn btn-info btn-sm" (click)="detail()">Detalle</button>
-                <button type="button" class="btn btn-dist btn-sm">Agregar al carrito</button>
-            </div>
-        </div> -->
-        <app-product-card class="col-lg-3 col-md-4 col-sm-6 mb-3 p-0" [product]="product"
-            *ngFor="let product of products | async"></app-product-card>
+        </div>
     </div>
 </div>
 

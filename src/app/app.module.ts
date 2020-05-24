@@ -24,7 +24,6 @@ import { CartService } from './services/cart.service';
 import { AppComponent } from './app.component';
 import { PagesComponent } from './pages/pages.component';
 
-import { ProductCardComponent } from './components/product-card/product-card.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
@@ -53,7 +52,6 @@ import { OrderComponent } from './pages/order/order.component';
 
     HomeComponent,
     CategoriesComponent,
-    ProductCardComponent,
 
     IndexComponent,
     ProductsComponent,

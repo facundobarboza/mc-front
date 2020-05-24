@@ -7,7 +7,9 @@ import { CategoryService } from '../services/category.service';
 import { Product } from 'src/app/models/product';
 import { Category } from '../models/category';
 
-import { Observable } from 'rxjs';
+import { CartService } from '../services/cart.service';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
@@ -16,12 +18,14 @@ import { Observable } from 'rxjs';
 })
 export class ProductsComponent implements OnInit {
 
-  products: Observable<Product[]>;
-  categories: Observable<Category[]>;
+  products: Product[];
+  categories: Category[];
   categoryName: string;
+  categorySelect: any = { name: '' };
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
     private productService: ProductService,
+    private cartService: CartService,
     private categoryService: CategoryService) { }
 
   ngOnInit(): void {
@@ -31,18 +35,51 @@ export class ProductsComponent implements OnInit {
     } else {
       this.getAllProducts();
     }
-    this.categories = this.categoryService.getAll();
+    this.getAllCategories();
   }
 
   getAllProducts() {
-    this.products = this.productService.getAllProducts();
+    this.productService.getAllProducts().subscribe((response: any) => {
+      this.products = response;
+    });
+  }
+
+  getAllCategories() {
+    this.categoryService.getAll().subscribe((response: any) => {
+      this.categories = response;
+      this.categorySelect = this.categories.find((category: any) => category.name == this.categoryName);
+    });
   }
 
   searchProduct(search: string) {
-    this.products = this.productService.searchProductsByName(search);
+    this.productService.searchProductsByName(search).subscribe((response: any) => {
+      this.products = response;
+    });
   }
 
   filterByCategoryName(filter: string) {
-    this.products = this.productService.filterByCategoryName(filter);
+    if (filter) {
+      this.productService.filterByCategoryName(filter).subscribe((response: any) => {
+        this.products = response;
+      });
+    }
+    else {
+      this.getAllProducts();
+    }
+  }
+
+  detail(product: Product) {
+    this.router.navigate(['/product', product.id]);
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addProduct(product);
+    Swal.fire({
+      icon: 'success',
+      title: 'Buen trabajo!',
+      text: 'Producto agregado al carrito',
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 }
