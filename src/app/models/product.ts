@@ -9,9 +9,14 @@ export class Product {
     categories: string;
     fileRef?: string;
     quantity: number;
+    discount?: number;
+    priceDiscount?: number;
+    percentage?: number;
+    applyDiscount: boolean;
 
     constructor() {
         this.status = true;
+        this.applyDiscount = false;
         this.principal = false;
     }
 }

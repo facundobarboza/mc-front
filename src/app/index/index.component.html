@@ -85,8 +85,12 @@
                     <img [src]="product.imgProduct" class="" [alt]="product.name">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fa-1x">{{product.name}}</h5>
-                    <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
+                    <h5 class="card-title fa-1x text-dist">{{product.name}}</h5>
+                    <h5 class="card-subtitle mb-2">
+                        <span [ngClass]="{'td-line-through text-muted': product.applyDiscount}">${{product.price}}</span>
+                        <span *ngIf="product.applyDiscount" class="ml-2 mr-2">${{product.priceDiscount}}</span>
+                        <span *ngIf="product.applyDiscount" class="badge badge-danger"><i class="fas fa-caret-down"></i> {{product.percentage}}%</span>
+                    </h5>
                     <p class="card-text">{{product.description}}</p>
                 </div>
             </div>

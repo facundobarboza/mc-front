@@ -12,12 +12,18 @@
                 <br>
             </div>
             <div class="col-md-8">
-                <h3>{{product.name}} <small class="text-dist">${{product.price}}</small></h3>
+                <h3>
+                    <span class="text-dist mr-2">{{product.name}}</span>
+                    <span [ngClass]="{'td-line-through text-muted': product.applyDiscount}">${{product.price}}</span>
+                    <span *ngIf="product.applyDiscount" class="ml-2 mr-2">${{product.priceDiscount}}</span>
+                    <span *ngIf="product.applyDiscount" class="badge badge-danger"><i class="fas fa-caret-down"></i>
+                        {{product.percentage}}%</span>
+                </h3>
                 <hr>
                 <p>{{product.description}}</p>
-                <!-- <button type="button" class="btn btn-info btn-sm" [routerLink]="['/products']">Volver</button> -->
                 <button type="button" class="btn btn-info btn-sm" (click)="back()">Volver</button>
-                <button type="button" class="btn btn-dist btn-sm" (click)="addToCart(product)">Agregar al carrito</button>
+                <button type="button" class="btn btn-dist btn-sm" (click)="addToCart(product)">Agregar al
+                    carrito</button>
             </div>
         </div>
     </div>

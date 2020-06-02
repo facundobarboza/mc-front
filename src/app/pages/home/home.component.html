@@ -21,13 +21,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of products | async">
-                        <td><img [src]="item.imgProduct" class="mr-3" [alt]="item.name" width="40" style="max-height: 30px;"></td>
+                    <tr *ngFor="let item of products">
+                        <td><img [src]="item.imgProduct" class="mr-3" [alt]="item.name" width="40"
+                                style="max-height: 30px;"></td>
                         <td>{{item.name}}</td>
                         <td>{{item.description}}</td>
                         <td class="text-center">${{item.price}}</td>
                         <td class="text-center">
-                            <span [ngClass]="{'badge-success': item.status, 'badge-danger': !item.status}" class="badge">{{item.status ? 'Activo' : 'Inactivo'}}</span>
+                            <span [ngClass]="{'badge-success': item.status, 'badge-danger': !item.status}"
+                                class="badge">{{item.status ? 'Activo' : 'Inactivo'}}</span>
                         </td>
                         <td class="text-center"><i *ngIf="item.principal" class="fas fa-check text-primary"></i></td>
                         <td class="text-right">{{item.quantity}}</td>
@@ -44,7 +46,7 @@
 
 <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="addProductLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                 <div class="modal-header">
@@ -74,11 +76,11 @@
                                     class="text-danger animated fadeIn fast">La descripción es obligatoria</span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="price">Precio</label>
                                 <input class="form-control" type="number" name="price" id="price"
-                                    [(ngModel)]="product.price" required>
+                                    [(ngModel)]="product.price" (ngModelChange)="resetDiscount()" required>
                                 <span *ngIf="f.submitted && f.controls['price'].errors"
                                     class="text-danger animated fadeIn fast">El precio es obligatorio</span>
                             </div>
@@ -112,12 +114,48 @@
                                     class="btn btn-danger w-100">No</button>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Descuento</label>
+                                <br>
+                                <button type="button" *ngIf="product.applyDiscount"
+                                    (click)="product.applyDiscount = false" class="btn btn-success w-100"><i
+                                        class="fas fa-check"></i></button>
+                                <button type="button" *ngIf="!product.applyDiscount"
+                                    (click)="product.applyDiscount = true" class="btn btn-danger w-100"><i
+                                        class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="product.applyDiscount">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="percentage">Descuento %</label>
+                                    <input class="form-control" type="number" name="percentage" id="percentage" min="0"
+                                        [(ngModel)]="product.percentage" (ngModelChange)="applyDiscountPercentage()"
+                                        [readonly]="!product.price">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="discount">Descuento $</label>
+                                    <input class="form-control" type="number" name="discount" id="discount"
+                                        [(ngModel)]="product.discount" (ngModelChange)="applyDiscountPrice()" [readonly]="!product.price">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="priceDiscount">Precio con descuento</label>
+                                    <input class="form-control" type="number" name="priceDiscount" id="priceDiscount"
+                                        [(ngModel)]="product.priceDiscount" readonly>
+                                </div>
+                            </div>
+                        </ng-container>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="category">Categorias:</label>
                                 <select placeholder="Categorias" class="form-control" multiple name="category"
                                     id="category" [(ngModel)]="product.categories">
-                                    <option *ngFor="let item of categoriesList | async" [value]="item.name">
+                                    <option *ngFor="let item of categoriesList" [value]="item.name">
                                         {{ item.name }}
                                     </option>
                                 </select>
@@ -152,7 +190,7 @@
 
 <div class="modal fade" id="editProduct" tabindex="-1" role="dialog" aria-labelledby="editProductLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                 <div class="modal-header">
@@ -186,7 +224,7 @@
                             <div class="form-group">
                                 <label for="price">Precio</label>
                                 <input class="form-control" type="number" name="price" id="price"
-                                    [(ngModel)]="product.price" required>
+                                    [(ngModel)]="product.price" (ngModelChange)="resetDiscount()" required>
                                 <span *ngIf="f.submitted && f.controls['price'].errors"
                                     class="text-danger animated fadeIn fast">El precio es obligatorio</span>
                             </div>
@@ -220,12 +258,48 @@
                                     class="btn btn-danger w-100">No</button>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Descuento</label>
+                                <br>
+                                <button type="button" *ngIf="product.applyDiscount"
+                                    (click)="product.applyDiscount = false" class="btn btn-success w-100"><i
+                                        class="fas fa-check"></i></button>
+                                <button type="button" *ngIf="!product.applyDiscount"
+                                    (click)="product.applyDiscount = true" class="btn btn-danger w-100"><i
+                                        class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="product.applyDiscount">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="percentage">Descuento %</label>
+                                    <input class="form-control" type="number" name="percentage" id="percentage" min="0"
+                                        [(ngModel)]="product.percentage" (ngModelChange)="applyDiscountPercentage()"
+                                        [readonly]="!product.price">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="discount">Descuento $</label>
+                                    <input class="form-control" type="number" name="discount" id="discount"
+                                        [(ngModel)]="product.discount" (ngModelChange)="applyDiscountPrice()" [readonly]="!product.price">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="priceDiscount">Precio con descuento</label>
+                                    <input class="form-control" type="number" name="priceDiscount" id="priceDiscount"
+                                        [(ngModel)]="product.priceDiscount" readonly>
+                                </div>
+                            </div>
+                        </ng-container>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="category">Categorias:</label>
                                 <select placeholder="Categorias" class="form-control" multiple name="category"
                                     id="category" [(ngModel)]="product.categories">
-                                    <option *ngFor="let item of categoriesList | async" [value]="item.name">
+                                    <option *ngFor="let item of categoriesList" [value]="item.name">
                                         {{ item.name }}
                                     </option>
                                 </select>

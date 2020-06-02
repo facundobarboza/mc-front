@@ -61,7 +61,8 @@ export class ProductService {
             principal: product.principal,
             categories: product.categories,
             fileRef: this.filePath,
-            quantity: product.quantity
+            quantity: product.quantity,
+            applyDiscount: product.applyDiscount
         };
 
         if (product.id) {

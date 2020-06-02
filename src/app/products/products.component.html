@@ -17,8 +17,7 @@
         <div class="col mt-3 d-md-none">
             <div class="form-group animated fadeIn fast">
                 <!-- <label for="categories">CATEGORIAS</label> -->
-                <select class="text-uppercase form-control" id="categories"
-                    [(ngModel)]="categorySelect"
+                <select class="text-uppercase form-control" id="categories" [(ngModel)]="categorySelect"
                     (ngModelChange)="filterByCategoryName(categorySelect.name)">
                     <option value="" selected>Todas</option>
                     <option *ngFor="let category of categories" [ngValue]="category">
@@ -36,14 +35,25 @@
                     <img [src]="product.imgProduct" class="" [alt]="product.name">
                 </div>
                 <div class="card-body">
-                    <h6 class="card-title">{{product.name}}</h6>
-                    <h6 class="card-subtitle mb-2 text-dist">${{product.price}}</h6>
+                    <h6 class="card-title text-dist">{{product.name}}</h6>
+                    <!-- <h5 class="card-subtitle mb-2" [ngClass]="{'td-line-through': product.applyDiscount}">${{product.price}}</h5> -->
+
+                    <h5 class="card-subtitle mb-2">
+                        <span
+                            [ngClass]="{'td-line-through text-muted': product.applyDiscount}">${{product.price}}</span>
+                        <span *ngIf="product.applyDiscount" class="ml-2 mr-2">${{product.priceDiscount}}</span>
+                        <span *ngIf="product.applyDiscount" class="badge badge-danger"><i class="fas fa-caret-down"></i>
+                            {{product.percentage}}%</span>
+                    </h5>
+
                     <p class="card-text text-muted">{{product.description}}</p>
                 </div>
                 <div class="card-footer text-center">
                     <div class="btn-group btn-group-sm btn-block">
-                        <button type="button" class="btn btn-info" (click)="detail(product)"><i class="fas fa-info"></i></button>
-                        <button type="button" class="btn btn-dist" (click)="addToCart(product)"><i class="fas fa-cart-plus"></i></button>
+                        <button type="button" class="btn btn-info" (click)="detail(product)"><i
+                                class="fas fa-info"></i></button>
+                        <button type="button" class="btn btn-dist" (click)="addToCart(product)"><i
+                                class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>

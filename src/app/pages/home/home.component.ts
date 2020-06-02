@@ -32,8 +32,20 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = this.productService.getAllProducts();
-    this.categoriesList = this.categoryService.getAll();
+    this.getAllProducts();
+    this.getAll();
+  }
+
+  getAllProducts() {
+    this.categoryService.getAll().subscribe((response: any) => {
+      this.categoriesList = response;
+    });
+  }
+
+  getAll() {
+    this.productService.getAllProducts().subscribe((response: any) => {
+      this.products = response;
+    });
   }
 
   crearFormulario() {
@@ -111,5 +123,31 @@ export class HomeComponent implements OnInit {
           });
       }
     });
+  }
+
+  applyDiscountPercentage() {
+    if (this.product.percentage > 0) {
+      this.product.discount = this.product.price * (this.product.percentage / 100);
+      this.product.priceDiscount = this.product.price - this.product.discount;
+    } else {
+      this.product.discount = null;
+      this.product.priceDiscount = null;
+    }
+  }
+
+  applyDiscountPrice() {
+    if (this.product.discount > 0) {
+      this.product.priceDiscount = this.product.price - this.product.discount;
+      this.product.percentage = (this.product.discount / this.product.price) * 100;
+    } else {
+      this.product.percentage = null;
+      this.product.priceDiscount = null;
+    }
+  }
+
+  resetDiscount() {
+    this.product.percentage = null;
+    this.product.discount = null;
+    this.product.priceDiscount = null;
   }
 }
