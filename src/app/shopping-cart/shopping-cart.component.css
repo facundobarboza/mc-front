@@ -6,3 +6,39 @@
     font-weight: 500;
     font-size: 0.8em;
 }
+
+@media (max-width: 768px) {
+    .responsive-visibility-none {
+        display: block;
+    }
+    .responsive-visibility {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .responsive-visibility-none {
+        display: none;
+    }
+    .responsive-visibility {
+        display: block;
+    }
+}
+
+@media (min-width: 992px) {
+    .responsive-visibility-none {
+        display: none;
+    }
+    .responsive-visibility {
+        display: block;
+    }
+}
+
+@media (min-width: 1200px) {
+    .responsive-visibility-none {
+        display: none;
+    }
+    .responsive-visibility {
+        display: block;
+    }
+}

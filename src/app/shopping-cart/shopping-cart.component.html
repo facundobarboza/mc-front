@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row m-5" *ngIf="productsToCard && productsToCard.length > 0; else alert">
-        <div class="table-responsive">
+        <div class="table-responsive responsive-visibility">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -41,6 +41,64 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="row" *ngIf="productsToCard && productsToCard.length > 0; else alert">
+        <div class="col-md-12 responsive-visibility-none">
+            <div class="card animated fadeIn fast" *ngFor="let productToCard of productsToCard; let i = index">
+                <div class="card-body">
+                    <h6 class="card-title text-dist">{{productToCard.name}}</h6>
+                    <h5 class="card-subtitle mb-2">
+                        <span
+                            [ngClass]="{'td-line-through text-muted': productToCard.applyDiscount}">{{productToCard.price | currency}}</span>
+                        <span *ngIf="productToCard.applyDiscount"
+                            class="ml-2 mr-2">{{productToCard.priceDiscount}}</span>
+                        <span *ngIf="productToCard.applyDiscount" class="badge badge-danger"><i
+                                class="fas fa-caret-down"></i>
+                            {{productToCard.percentage}}%</span>
+                    </h5>
+
+                    <p class="card-text text-muted">{{productToCard.description}}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <div class="btn-group btn-group-sm btn-block">
+                        <div class="col-md-4">
+                            <input type="number" (blur)="checkValue(productToCard.count, i)" style="text-align: center;"
+                                name="count" class="form-control form-control-sm" [(ngModel)]="productToCard.count"
+                                id="count" min="1" [max]="productToCard.quantity" value="1">
+                            <small style="font-size: 70%;" class="text-muted text-uppercase">stock:
+                                {{productToCard.quantity}}</small>
+                        </div>
+                        <div class="col-md-4">
+                            <small>Total</small>
+                            <h6>{{ productToCard.price * productToCard.count | currency}}</h6>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-danger" (click)="deleteProduct(productToCard, i)" title="Eliminar"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card animated fadeIn fast">
+                <div class="card-footer text-center">
+                    <div class="btn-group btn-group-sm btn-block">
+                        <div class="col-md-4 mt-3">
+                            <h5>Total</h5>
+                        </div>
+                        <div class="col-md-4">
+                            <small>Cantidad</small>
+                            <h6>{{returnTotalCount()}}</h6>
+                        </div>
+                        <div class="col-md-4">
+                            <small>Monto</small>
+                            <h6>{{returnTotal() | currency}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-5" *ngIf="productsToCard && productsToCard.length > 0; else alert">
         <div class="col-md-12 text-right">
             <button class="btn btn-primary" (click)="confirmOrder()">Confirmar pedido</button>
         </div>
