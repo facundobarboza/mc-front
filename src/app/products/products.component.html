@@ -1,6 +1,4 @@
-<app-navbar></app-navbar>
-
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col mt-5 d-none d-md-flex d-lg-flex">
             <div class="btn-block btn-group btn-group-toggle text-uppercase animated fadeIn fast" data-toggle="buttons">
@@ -16,7 +14,6 @@
         </div>
         <div class="col mt-3 d-md-none">
             <div class="form-group animated fadeIn fast">
-                <!-- <label for="categories">CATEGORIAS</label> -->
                 <select class="text-uppercase form-control" id="categories" [(ngModel)]="categorySelect"
                     (ngModelChange)="filterByCategoryName(categorySelect.name)">
                     <option value="" selected>Todas</option>
@@ -36,7 +33,6 @@
                 </div>
                 <div class="card-body">
                     <h6 class="card-title text-dist">{{product.name}}</h6>
-                    <!-- <h5 class="card-subtitle mb-2" [ngClass]="{'td-line-through': product.applyDiscount}">${{product.price}}</h5> -->
 
                     <h5 class="card-subtitle mb-2">
                         <span
@@ -59,6 +55,92 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="hero-wrap hero-bread" style="background-image: url('assets/images/bg_1.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
+                <h1 class="mb-0 bread">Products</h1>
+            </div>
+        </div>
+    </div>
 </div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 mb-5 text-center">
+                <ul class="product-category">
+                    <li>
+                        <button class="btn btn-dist px-4" (click)="getAllProducts()">Todas</button>
+                    </li>
+                    <li *ngFor="let category of categories">
+                        <button class="btn btn-dist px-4" [ngClass]="{'active': categoryName == category.name}"
+                            (click)="filterByCategoryName(category.name)">{{category.name}}</button>
+                    </li>
+                </ul>
+                <!-- <div class="btn-block btn-group btn-group-toggle text-uppercase animated fadeIn fast"
+                    data-toggle="buttons">
+                    <label class="btn btn-dist font-weight-lighter">
+                        <input type="radio" name="options" id="all" (click)="getAllProducts()"> Todas
+                    </label>
+                    <label class="btn btn-dist font-weight-lighter"
+                        [ngClass]="{'active': categoryName == category.name}" *ngFor="let category of categories">
+                        <input type="radio" name="options" [id]="category.id"
+                            (click)="filterByCategoryName(category.name)">
+                        {{category.name}}
+                    </label>
+                </div> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-3 ftco-animate" *ngFor="let product of products">
+                <div class="product">
+                    <a href="#" class="img-prod box">
+                        <img class="img-fluid" [src]="product.imgProduct" [alt]="product.name">
+                        <span class="status" *ngIf="product.applyDiscount">{{product.percentage}}%</span>
+                        <div class="overlay"></div>
+                    </a>
+                    <div class="text py-3 pb-4 px-3 text-center">
+                        <h3><a href="#">{{product.name}}</a></h3>
+                        <h4>{{product.description}}</h4>
+                        <div class="d-flex">
+                            <div class="pricing">
+                                <p class="price">
+                                    <span class="mr-2"
+                                        [ngClass]="{'price-dc': product.applyDiscount}">${{product.price}}</span>
+                                    <span class="price-sale"
+                                        *ngIf="product.applyDiscount">${{product.priceDiscount}}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex px-3 mt-2">
+                            <div class="m-auto d-flex">
+                                <button class="btn btn-dist"><i class="ion-ios-menu"></i></button>
+                                <button class="btn btn-dist"><i class="ion-ios-cart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    <ul>
+                        <li><a href="#">&lt;</a></li>
+                        <li class="active"><span>1</span></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&gt;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</section>
 
 <app-footer></app-footer>

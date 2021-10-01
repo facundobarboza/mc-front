@@ -15,7 +15,8 @@ import { Observable } from 'rxjs';
 })
 export class IndexComponent implements OnInit {
   categories: Observable<Category[]>;
-  products: Observable<Product[]>;
+  // products: Observable<Product[]>;
+  products: Product[];
 
   constructor(private router: Router, private categoryService: CategoryService, private productService: ProductService) { }
 
@@ -25,7 +26,11 @@ export class IndexComponent implements OnInit {
   }
 
   getAllPrincipal() {
-    this.products = this.productService.getAllPrincipal();
+    // this.products = this.productService.getAllPrincipal();
+    this.productService.getAllPrincipal().subscribe((response: Product[]) => {
+      this.products = response;
+      console.log(this.products);
+    });
   }
 
   detail(productId: string) {

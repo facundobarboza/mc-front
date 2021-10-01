@@ -41,3 +41,9 @@
 .card-footer {
     background-color: transparent;
 }
+
+.product .text h4 {
+    font-size: 12px;
+    font-weight: 300;
+    font-family: "Poppins", Arial, sans-serif;
+}
